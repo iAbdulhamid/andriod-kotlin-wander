@@ -14,6 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.wander.databinding.ActivityMapsBinding
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MapStyleOptions
 import java.util.*
 
@@ -21,7 +22,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private val TAG = MapsActivity::class.java.simpleName   // This will be used for logging purposes.
+    private val TAG =
+        MapsActivity::class.java.simpleName   // This will be used for logging purposes.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         inflater.inflate(R.menu.map_options, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         // Change the map type based on the user's selection.
         R.id.normal_map -> {
@@ -86,7 +89,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun setMapLongClick(map:GoogleMap) {
+    private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
 
             // A Snippet is Additional text that's displayed below the title.
@@ -96,11 +99,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 latLng.latitude,
                 latLng.longitude
             )
-            map.addMarker(MarkerOptions()
-                .position(latLng)
-                .title(getString(R.string.dropped_pin))
-                .snippet(snippet))
-
+            map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(getString(R.string.dropped_pin))
+                    .snippet(snippet)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            )
         }
     }
 
