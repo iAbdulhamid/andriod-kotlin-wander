@@ -11,11 +11,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.example.wander.databinding.ActivityMapsBinding
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.*
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -53,8 +50,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val longitude = 31.187336
         val assiut = LatLng(latitude, longitude)
         val zoomLevel = 15f
+        val overlaySize = 100f
+
         map.addMarker(MarkerOptions().position(assiut).title("Marker in Assiut"))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(assiut, zoomLevel))
+
+        val androidOverlay = GroundOverlayOptions()
+            .image(BitmapDescriptorFactory.fromResource(R.drawable.android))
+            .position(assiut, overlaySize)
+        map.addGroundOverlay(androidOverlay)
 
         setMapLongClick(map)
         setPoiClick(map)
